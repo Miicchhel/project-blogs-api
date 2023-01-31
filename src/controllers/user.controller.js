@@ -1,4 +1,4 @@
-const { insert, getAll } = require('../services/user.service');
+const { insert, getAll, getById } = require('../services/user.service');
 
 const insertUser = async (req, res) => {
   const token = await insert(req.body);
@@ -13,7 +13,18 @@ const getAllUsers = async (req, res) => {
   return res.status(200).json(users);
 };
 
+const getAllById = async (req, res) => {
+  const { id } = req.params;
+
+  const user = await getById(id);
+  
+  if (!user.type) return res.status(200).json(user.message);
+  
+  return res.status(user.type).json({ message: user.message });
+};
+
 module.exports = {
   insertUser,
   getAllUsers,
+  getAllById,
 };
