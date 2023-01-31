@@ -14,6 +14,9 @@ const insert = async ({ displayName, email, password, image }) => {
   return { type: null, message: token };
 };
 
+const getAll = async () => User.findAll({ attributes: { exclude: ['password'] } });
+
 module.exports = {
   insert,
+  getAll,
 };
